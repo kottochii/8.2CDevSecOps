@@ -42,7 +42,25 @@ pipeline {
         }
         stage('NPM Audit (Security Scan)') {
             steps {
-                sh 'npm audit || true' // This will show known CVEs in the output
+                sh 'npm audit  > npm-test.log 2>&1 || true' // This will show known CVEs in the output
+            }
+
+            post {
+                success {
+                    emailext (
+                        to: "s222271192@deakin.edu.au",
+                        subject: "SUCCESS: Job '${env.JOB_NAME}'",
+                        body: "Security scanning succeeded! Log attached.",
+                        attachmentsPattern: "**/npm-test.log"
+                    )
+                }
+                failure {
+                    emailext (
+                        to: "s222271192@deakin.edu.au",
+                        subject: "FAILED: Job '${env.JOB_NAME}'",
+                        body: "Security scanning failed. Check logs: ${env.BUILD_URL}console"
+                    )
+                }
             }
         }
     }
