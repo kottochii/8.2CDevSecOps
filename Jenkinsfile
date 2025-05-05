@@ -5,13 +5,6 @@ pipeline {
             steps {
                 git branch: 'main', url: ' https://github.com/kottochii/8.2CDevSecOps.git'
             }
-            post {
-                success {
-                    mail to: "s222271192@deakin.edu.au",
-                    subject: "Checkout succeded",
-                    body: "Build succeded"
-                }
-            }
         }
         stage('Install Dependencies') {
             steps {
@@ -20,7 +13,25 @@ pipeline {
         }
         stage('Run Tests') {
             steps {
-                sh 'npm test || true' // Allows pipeline to continue despite test failures
+                sh 'npm test > npm-test.log 2>&1 || true' // Allows pipeline to continue despite test failures
+            }
+
+            post {
+                success {
+                    emailext (
+                        to: "s222271192@deakin.edu.au",
+                        subject: "SUCCESS: Job '${env.JOB_NAME}'",
+                        body: "Testing succeeded! Log attached.",
+                        attachmentsPattern: "**/npm-test.log"
+                    )
+                }
+                failure {
+                    emailext (
+                        to: "s222271192@deakin.edu.au",
+                        subject: "FAILED: Job '${env.JOB_NAME}'",
+                        body: "Testing failed. Check logs: ${env.BUILD_URL}console"
+                    )
+                }
             }
         }
         stage('Generate Coverage Report') {
