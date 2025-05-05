@@ -13,7 +13,7 @@ pipeline {
         }
         stage('Run Tests') {
             steps {
-                sh 'npm test > npm-test.log 2>&1 || true' // Allows pipeline to continue despite test failures
+                sh 'npm test > npm-test.log 2>&1' // Allows pipeline to continue despite test failures
             }
 
             post {
@@ -42,7 +42,7 @@ pipeline {
         }
         stage('NPM Audit (Security Scan)') {
             steps {
-                sh 'npm audit  > npm-test.log 2>&1 || true' // This will show known CVEs in the output
+                sh 'npm audit  > npm-test.log 2>&1' // This will show known CVEs in the output
             }
 
             post {
