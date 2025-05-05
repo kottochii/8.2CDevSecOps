@@ -22,16 +22,14 @@ pipeline {
                         to: "s222271192@deakin.edu.au",
                         subject: "SUCCESS: Job '${env.JOB_NAME}'",
                         body: "Testing succeeded! Log attached.",
-                        attachmentsPattern: "**/npm-test.log",
-                        debugMode: true  // ← Enables verbose logging
+                        attachmentsPattern: "**/npm-test.log"
                     )
                 }
                 failure {
                     emailext (
                         to: "s222271192@deakin.edu.au",
                         subject: "FAILED: Job '${env.JOB_NAME}'",
-                        body: "Testing failed. Check logs: ${env.BUILD_URL}console",
-                        debugMode: true  // ← Enables verbose logging
+                        body: "Testing failed. Check logs: ${env.BUILD_URL}console"
                     )
                 }
             }
