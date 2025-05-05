@@ -29,7 +29,8 @@ pipeline {
                     emailext (
                         to: "s222271192@deakin.edu.au",
                         subject: "FAILED: Testing in Job '${env.JOB_NAME}'",
-                        body: "Testing failed. Check logs: ${env.BUILD_URL}console"
+                        body: "Testing failed! Log attached.",
+                        attachmentsPattern: "**/npm-test.log"
                     )
                 }
             }
@@ -58,7 +59,8 @@ pipeline {
                     emailext (
                         to: "s222271192@deakin.edu.au",
                         subject: "FAILED: Security scan in Job '${env.JOB_NAME}'",
-                        body: "Security scanning failed. Check logs: ${env.BUILD_URL}console"
+                        body: "Security scanning failed! Log attached.",
+                        attachmentsPattern: "**/npm-test.log"
                     )
                 }
             }
