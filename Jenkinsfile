@@ -5,6 +5,13 @@ pipeline {
             steps {
                 git branch: 'main', url: ' https://github.com/kottochii/8.2CDevSecOps.git'
             }
+            post {
+                success {
+                    mail to: "s222271192@deakin.edu.au",
+                    subject: "Checkout succeded",
+                    body: "Build succeded"
+                }
+            }
         }
         stage('Install Dependencies') {
             steps {
