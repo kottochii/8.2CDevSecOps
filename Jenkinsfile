@@ -20,7 +20,7 @@ pipeline {
                 success {
                     emailext (
                         to: "s222271192@deakin.edu.au",
-                        subject: "SUCCESS: Job '${env.JOB_NAME}'",
+                        subject: "SUCCESS: Testing in Job '${env.JOB_NAME}'",
                         body: "Testing succeeded! Log attached.",
                         attachmentsPattern: "**/npm-test.log"
                     )
@@ -28,7 +28,7 @@ pipeline {
                 failure {
                     emailext (
                         to: "s222271192@deakin.edu.au",
-                        subject: "FAILED: Job '${env.JOB_NAME}'",
+                        subject: "FAILED: Testing in Job '${env.JOB_NAME}'",
                         body: "Testing failed. Check logs: ${env.BUILD_URL}console"
                     )
                 }
@@ -49,7 +49,7 @@ pipeline {
                 success {
                     emailext (
                         to: "s222271192@deakin.edu.au",
-                        subject: "SUCCESS: Job '${env.JOB_NAME}'",
+                        subject: "SUCCESS: Security scan in Job '${env.JOB_NAME}'",
                         body: "Security scanning succeeded! Log attached.",
                         attachmentsPattern: "**/npm-test.log"
                     )
@@ -57,7 +57,7 @@ pipeline {
                 failure {
                     emailext (
                         to: "s222271192@deakin.edu.au",
-                        subject: "FAILED: Job '${env.JOB_NAME}'",
+                        subject: "FAILED: Security scan in Job '${env.JOB_NAME}'",
                         body: "Security scanning failed. Check logs: ${env.BUILD_URL}console"
                     )
                 }
