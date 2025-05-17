@@ -16,7 +16,7 @@ pipeline {
                 sh 'npm test > npm-test.log 2>&1' // Allows pipeline to continue despite test failures
             }
 
-            post {
+            post {#
                 success {
                     emailext (
                         to: "s222271192@deakin.edu.au",
