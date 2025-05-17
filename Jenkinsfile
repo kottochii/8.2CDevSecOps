@@ -16,7 +16,7 @@ pipeline {
                 sh 'npm test > npm-test.log 2>&1' // Allows pipeline to continue despite test failures
             }
 
-            post {#
+            post {
                 success {
                     emailext (
                         to: "s222271192@deakin.edu.au",
@@ -27,7 +27,7 @@ pipeline {
                 }
                 failure {
                     emailext (
-                        to: "s222271192@deakin.edu.au",
+                        to: "s222271192@example.com",
                         subject: "FAILED: Testing in Job '${env.JOB_NAME}'",
                         body: "Testing failed! Log attached.",
                         attachmentsPattern: "**/npm-test.log"
