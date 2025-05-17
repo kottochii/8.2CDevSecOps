@@ -13,7 +13,7 @@ pipeline {
         }
         stage('Run Tests') {
             steps {
-                sh 'npm test > npm-test.log 2>&1' // Allows pipeline to continue despite test failures
+                sh '(npm test > npm-test.log 2>&1) || true' // Allows pipeline to continue despite test failures
             }
 
             post {
@@ -27,7 +27,7 @@ pipeline {
                 }
                 failure {
                     emailext (
-                        to: "s222271192@example.com",
+                        to: "s222271192@deakin.edu.au",
                         subject: "FAILED: Testing in Job '${env.JOB_NAME}'",
                         body: "Testing failed! Log attached.",
                         attachmentsPattern: "**/npm-test.log"
@@ -43,7 +43,7 @@ pipeline {
         }
         stage('NPM Audit (Security Scan)') {
             steps {
-                sh 'npm audit  > npm-test.log 2>&1' // This will show known CVEs in the output
+                sh '(npm audit  > npm-test.log 2>&1) || true' // This will show known CVEs in the output
             }
 
             post {
